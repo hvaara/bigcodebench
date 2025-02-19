@@ -26,13 +26,17 @@ class HuggingFaceInferenceDecoder(DecoderBase):
 
         for prompt in tqdm(prompts):
             outputs = []
-            message = make_raw_chat_prompt(
-                task_prompt=prompt,
-                subset=self.subset,
-                split=self.split,
-                instruction_prefix=self.instruction_prefix,
-                response_prefix=self.response_prefix,
-                tokenizer=None,
+            message = (
+                prompt
+                if self.is_direct_completion()
+                else make_raw_chat_prompt(
+                    task_prompt=prompt,
+                    subset=self.subset,
+                    split=self.split,
+                    instruction_prefix=self.instruction_prefix,
+                    response_prefix=self.response_prefix,
+                    tokenizer=None,
+                )
             )
             ret = make_auto_request(
                 self.client,
@@ -55,4 +59,4 @@ class HuggingFaceInferenceDecoder(DecoderBase):
         return all_outputs
 
     def is_direct_completion(self) -> bool:
-        return False
+        return self.direct_completion

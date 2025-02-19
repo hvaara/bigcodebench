@@ -77,6 +77,7 @@ def make_model(
             split=split,
             temperature=temperature,
             max_new_tokens=max_new_tokens,
+            direct_completion=direct_completion,
             instruction_prefix=instruction_prefix,
             response_prefix=response_prefix,
         )
