@@ -12,6 +12,7 @@ BIGCODEBENCH_NEW_VERSION = "v0.1.3"
 
 def map_ds(sample):
     if sample["task_id"] in ["BigCodeBench/211"]:
+        print("HERE")
         sample['test'] = sample['test'].replace(
 """
         mock_response = MagicMock()
@@ -23,7 +24,7 @@ def map_ds(sample):
         mock_response.status_code = 200
 """
         )
-
+        print(f"{sample['test']=}")
     if sample["task_id"] in ["BigCodeBench/215"]:
         sample['test'] = sample['test'].replace(
 """
@@ -32,8 +33,29 @@ def map_ds(sample):
 """
         mock_response = Mock()
         mock_response.status_code = 200
+        mock_response.return_value.headers = {"Content-Type": "application/json"}
 """
         )
+        sample['test'] = sample['test'].replace(
+"""
+        mock_response.text =""",
+"""
+        MOCK_TEXT ="""
+        )
+        sample['test'] = sample['test'].replace(
+"""
+        mock_get.return_value = mock_response
+""",
+"""
+        mock_response.text = MOCK_TEXT
+        mock_response.json = lambda: json.loads(MOCK_TEXT)
+        mock_get.return_value = mock_response
+"""
+        )
+        sample['complete_prompt'] = sample['complete_prompt'].replace("Thif function will raise", "This function will raise")
+        sample['instruct_prompt'] = sample['instruct_prompt'].replace("Thif function will raise", "This function will raise")
+        sample['doc_struct'] = sample['doc_struct'].replace("Thif function will raise", "This function will raise")
+        # print(sample['test'])
     if sample["task_id"] in ["BigCodeBench/1005"]:
         for k in sample.keys():
             sample[k] = sample[k].replace(
@@ -52,7 +74,8 @@ if __name__ == "__main__":
     ds = ds_dict[BIGCODEBENCH_VERSION]
     hard_ds = hard_ds_dict[BIGCODEBENCH_VERSION]
     # function_id = [211, 215, 1005]
-    function_id = [211, 215]
+    # function_id = [211, 215]
+    function_id = [211]
     
     new_ds = ds.map(map_ds)
     new_ds.to_json("BigCodeBench.jsonl")
