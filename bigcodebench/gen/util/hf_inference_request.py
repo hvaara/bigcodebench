@@ -16,6 +16,7 @@ def make_request(
         model=model,
         prompt=message,
         temperature=temperature,
+        do_sample=False,
         max_new_tokens=max_new_tokens,
     )
 
