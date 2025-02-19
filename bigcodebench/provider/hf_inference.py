@@ -5,15 +5,15 @@ from tqdm import tqdm
 from huggingface_hub import InferenceClient
 
 from bigcodebench.provider.base import DecoderBase
-from bigcodebench.gen.util.hf_providers_request import make_auto_request
+from bigcodebench.gen.util.hf_inference_request import make_auto_request
 from bigcodebench.provider.utility import make_raw_chat_prompt
 
 
-class HFProvidersDecoder(DecoderBase):
+class HuggingFaceDecoder(DecoderBase):
     def __init__(self, name: str, **kwargs):
         super().__init__(name, **kwargs)
         self.client = InferenceClient(
-            provider="hf-inference", api_key=os.getenv("HF_PROVIDERS_API_KEY")
+            provider="hf-inference", api_key=os.getenv("HF_INFERENCE_API_KEY")
         )
 
     def codegen(

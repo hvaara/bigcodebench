@@ -15,7 +15,6 @@ def make_request(
     response = client.text_generation(
         model=model,
         prompt=message,
-        provider="hf-inference",
         temperature=temperature,
         max_new_tokens=max_new_tokens,
     )

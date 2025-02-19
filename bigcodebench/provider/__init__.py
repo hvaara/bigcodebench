@@ -68,10 +68,10 @@ def make_model(
             tokenizer_name=tokenizer_name,
             tokenizer_legacy=tokenizer_legacy,
         )
-    elif backend == "hf-providers":
-        from bigcodebench.provider.hf_providers import HFProvidersDecoder
+    elif backend == "hf-inference":
+        from bigcodebench.provider.hf_inference import HuggingFaceInferenceDecoder
 
-        return HFProvidersDecoder(
+        return HuggingFaceInferenceDecoder(
             name=model,
             subset=subset,
             split=split,
