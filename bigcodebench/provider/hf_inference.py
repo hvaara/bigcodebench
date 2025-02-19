@@ -59,4 +59,5 @@ class HuggingFaceInferenceDecoder(DecoderBase):
         return all_outputs
 
     def is_direct_completion(self) -> bool:
+        print(f"{self.direct_completion=}")
         return self.direct_completion

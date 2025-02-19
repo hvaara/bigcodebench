@@ -15,7 +15,6 @@ def make_request(
     response = client.text_generation(
         model=model,
         prompt=message,
-        temperature=temperature,
         do_sample=False,
         max_new_tokens=max_new_tokens,
     )
