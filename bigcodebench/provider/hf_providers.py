@@ -37,6 +37,7 @@ class HFProvidersDecoder(DecoderBase):
             ret = make_auto_request(
                 self.client,
                 message=message,
+                model=self.name,
                 n=num_samples,
                 temperature=self.temperature,
                 max_new_tokens=self.max_new_tokens,

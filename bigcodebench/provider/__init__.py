@@ -72,7 +72,7 @@ def make_model(
         from bigcodebench.provider.hf_providers import HFProvidersDecoder
 
         return HFProvidersDecoder(
-            model=model,
+            name=model,
             subset=subset,
             split=split,
             temperature=temperature,
