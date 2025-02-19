@@ -68,6 +68,18 @@ def make_model(
             tokenizer_name=tokenizer_name,
             tokenizer_legacy=tokenizer_legacy,
         )
+    elif backend == "hf-providers":
+        from bigcodebench.provider.hf_providers import HFProvidersDecoder
+
+        return HFProvidersDecoder(
+            model=model,
+            subset=subset,
+            split=split,
+            temperature=temperature,
+            max_new_tokens=max_new_tokens,
+            instruction_prefix=instruction_prefix,
+            response_prefix=response_prefix,
+        )
     elif backend == "openai":
         from bigcodebench.provider.openai import OpenAIChatDecoder
 
