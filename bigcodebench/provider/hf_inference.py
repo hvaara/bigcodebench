@@ -42,14 +42,15 @@ class HuggingFaceInferenceDecoder(DecoderBase):
                 temperature=self.temperature,
                 max_new_tokens=self.max_new_tokens,
             )
-            for candidate in ret.candidates:
-                parts = candidate.content.parts
-                if parts:
-                    outputs.append(parts[0].text)
-                else:
-                    print("Empty response!")
-                    outputs.append("")
-                    print(f"{candidate.safety_ratings = }")
+            # for candidate in ret.candidates:
+            #     parts = candidate.content.parts
+            #     if parts:
+            #         outputs.append(parts[0].text)
+            #     else:
+            #         print("Empty response!")
+            #         outputs.append("")
+            #         print(f"{candidate.safety_ratings = }")
+            outputs.append(ret)
             all_outputs.append(outputs)
         return all_outputs
 
