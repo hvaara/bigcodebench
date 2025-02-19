@@ -9,7 +9,7 @@ from bigcodebench.gen.util.hf_inference_request import make_auto_request
 from bigcodebench.provider.utility import make_raw_chat_prompt
 
 
-class HuggingFaceDecoder(DecoderBase):
+class HuggingFaceInferenceDecoder(DecoderBase):
     def __init__(self, name: str, **kwargs):
         super().__init__(name, **kwargs)
         self.client = InferenceClient(
